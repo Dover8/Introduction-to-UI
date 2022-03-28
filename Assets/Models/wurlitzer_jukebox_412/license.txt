@@ -1,0 +1,11 @@
+Model Information:
+* title:	Wurlitzer Jukebox 412
+* source:	https://sketchfab.com/3d-models/wurlitzer-jukebox-412-4fb7f51877bf46f8b2dbe224bd870edc
+* author:	Osho (https://sketchfab.com/Crysis007-94)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Wurlitzer Jukebox 412" (https://sketchfab.com/3d-models/wurlitzer-jukebox-412-4fb7f51877bf46f8b2dbe224bd870edc) by Osho (https://sketchfab.com/Crysis007-94) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
