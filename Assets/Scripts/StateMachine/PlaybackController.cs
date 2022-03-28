@@ -44,7 +44,7 @@ namespace StateMachine
         public UnityEvent OnEnterPlay;
         public UnityEvent OnExitPlay;
 
-        public AudioSource audioSource;
+        [SerializeField] public AudioSource audioSource;
 
         private void Start()
         {
@@ -52,7 +52,7 @@ namespace StateMachine
             playState = new PlayState(this, stateMachine);
             pauseState = new PauseState(this, stateMachine);
         
-            stateMachine.Initialize(pauseState);
+            stateMachine.Initialize(playState);
         }
 
         private void Update()
