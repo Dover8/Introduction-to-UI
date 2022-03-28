@@ -28,75 +28,31 @@
  * THE SOFTWARE.
  */
 
-using System;
+using ScriptableObjects;
+using StateMachine;
 using UnityEngine;
-using UnityEngine.Events;
 
-namespace StateMachine
+public class TrackList : MonoBehaviour
 {
-    public class PlaybackController : MonoBehaviour
+    public Track trackPrefab;
+
+    public Transform trackListParent;
+
+    public void LoadPlaylist(PlaybackController controller, Playlist playlist)
     {
-        private PlaybackStateMachine stateMachine;
-
-        public PlayState playState { get; private set; }
-        public PauseState pauseState { get; private set; }
-
-        public UnityEvent OnEnterPlay;
-        public UnityEvent OnExitPlay;
-
-        [SerializeField] public AudioSource audioSource;
-
-        private void Start()
+        foreach (var track in playlist.tracks)
         {
-            stateMachine = new PlaybackStateMachine();
-            playState = new PlayState(this, stateMachine);
-            pauseState = new PauseState(this, stateMachine);
-        
-            stateMachine.Initialize(playState);
-        }
-
-        private void Update()
-        {
-            stateMachine.CurrentState.HandleInput();
-            
-            stateMachine.CurrentState.LogicUpdate();
-        }
-
-        private void FixedUpdate()
-        {
-            stateMachine.CurrentState.PhysicsUpdate();
-        }
-
-        public void Play()
-        {
-            stateMachine.ChangeState(playState);
-        }
-
-        public void Pause()
-        {
-            stateMachine.ChangeState(pauseState);
-        }
-
-        public void ToggleState(bool isPlay)
-        {
-            if (isPlay)
-            {
-                stateMachine.ChangeState(playState);
-            }
-            else
-            {
-                stateMachine.ChangeState(pauseState);
-            }
-        }
-
-        public void SetVolume(float val)
-        {
-            audioSource.volume = val;
-        }
-
-        public void UpdateTime()
-        {
-            
+            Track newTrack = Instantiate(trackPrefab, trackListParent);
+            newTrack.Setup(controller, track);
         }
     }
+
+    public void ClearList()
+    {
+        for (int i = trackListParent.childCount - 1; i > 0; i--)
+        {
+            Destroy(trackListParent.GetChild(i).gameObject);    
+        }
+    }
+    
 }

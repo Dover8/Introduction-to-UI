@@ -28,75 +28,26 @@
  * THE SOFTWARE.
  */
 
-using System;
+using StateMachine;
 using UnityEngine;
-using UnityEngine.Events;
+using UnityEngine.UI;
 
-namespace StateMachine
+public class Track : MonoBehaviour
 {
-    public class PlaybackController : MonoBehaviour
+    private AudioClip clip;
+    private PlaybackController playbackController;
+    [SerializeField] private Text label;
+
+    public void Setup(PlaybackController playbackController, AudioClip clip)
     {
-        private PlaybackStateMachine stateMachine;
+        this.playbackController = playbackController;
+        this.clip = clip;
+        label.text = clip.name;
+    }
 
-        public PlayState playState { get; private set; }
-        public PauseState pauseState { get; private set; }
-
-        public UnityEvent OnEnterPlay;
-        public UnityEvent OnExitPlay;
-
-        [SerializeField] public AudioSource audioSource;
-
-        private void Start()
-        {
-            stateMachine = new PlaybackStateMachine();
-            playState = new PlayState(this, stateMachine);
-            pauseState = new PauseState(this, stateMachine);
-        
-            stateMachine.Initialize(playState);
-        }
-
-        private void Update()
-        {
-            stateMachine.CurrentState.HandleInput();
-            
-            stateMachine.CurrentState.LogicUpdate();
-        }
-
-        private void FixedUpdate()
-        {
-            stateMachine.CurrentState.PhysicsUpdate();
-        }
-
-        public void Play()
-        {
-            stateMachine.ChangeState(playState);
-        }
-
-        public void Pause()
-        {
-            stateMachine.ChangeState(pauseState);
-        }
-
-        public void ToggleState(bool isPlay)
-        {
-            if (isPlay)
-            {
-                stateMachine.ChangeState(playState);
-            }
-            else
-            {
-                stateMachine.ChangeState(pauseState);
-            }
-        }
-
-        public void SetVolume(float val)
-        {
-            audioSource.volume = val;
-        }
-
-        public void UpdateTime()
-        {
-            
-        }
+    public void PlayTrack()
+    {
+        playbackController.audioSource.clip = clip;
+        playbackController.Play();
     }
 }

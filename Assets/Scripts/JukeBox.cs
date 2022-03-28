@@ -31,15 +31,43 @@
 using ScriptableObjects;
 using StateMachine;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class JukeBox : MonoBehaviour
 {
-    public Playlist[] playlists;
+    [SerializeField]
+    private Playlist[] playlists;
 
+    public Dropdown playlistDropdown;
+    public TrackList trackList;
+    
     private PlaybackController playbackController;
 
     private void Start()
     {
         playbackController = GetComponent<PlaybackController>();
+        SetupPlaylists();
+    }
+
+    private void SetupPlaylists()
+    {
+        if (playlists == null || playlists.Length < 1)
+        {
+            return;
+        }
+
+        for (int i = 0; i < playlists.Length; i++)
+        {
+            playlistDropdown.options[i].text = playlists[i].playlistName;
+        }
+        
+        playlistDropdown.onValueChanged.AddListener(ChangePlaylist);
+        ChangePlaylist(0);
+    }
+
+    private void ChangePlaylist(int index)
+    {
+        trackList.ClearList();
+        trackList.LoadPlaylist(playbackController, playlists[index]);
     }
 }
