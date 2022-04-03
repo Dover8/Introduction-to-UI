@@ -49,7 +49,7 @@ public class TrackList : MonoBehaviour
 
     public void ClearList()
     {
-        for (int i = trackListParent.childCount - 1; i > 0; i--)
+        for (int i = trackListParent.childCount - 1; i >= 0; i--)
         {
             Destroy(trackListParent.GetChild(i).gameObject);    
         }
