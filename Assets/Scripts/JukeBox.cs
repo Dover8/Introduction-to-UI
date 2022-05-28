@@ -51,7 +51,7 @@ public class JukeBox : MonoBehaviour
 
     private void SetupPlaylists()
     {
-        if (playlists == null || playlists.Length < 1)
+        if (playlists == null || playlists.Length < 1 || playlistDropdown == null)
         {
             return;
         }
